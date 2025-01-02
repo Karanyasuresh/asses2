@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Check out code from GitHub repository
-                git branch: 'main', url: 'https://github.com/your-repository-url.git'
+                git branch: 'main', url: 'https://github.com/Karanyasuresh/asses2.git'
             }
         }
         stage('Install Dependencies') {
