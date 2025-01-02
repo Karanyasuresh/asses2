@@ -23,6 +23,12 @@ pipeline {
                 '''
             }
         }
+         stage('Install ESLint') {
+            steps {
+                bat 'npm install eslint --save-dev'
+            }
+        }
+
 
         stage('Lint') {
             steps {
