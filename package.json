@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-   "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "react-scripts build",
   "lint": "eslint . --fix",
-  "build": "react-scripts build" 
+  "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
