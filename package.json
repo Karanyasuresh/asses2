@@ -4,9 +4,10 @@
   "description": "Backend for the application",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "lint": "eslint . --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+     "start": "node dist/index.js",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
