@@ -4,10 +4,10 @@
   "description": "Backend for the application",
   "main": "index.js",
   "scripts": {
-     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint": "eslint model --c .js,.jsx"
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
