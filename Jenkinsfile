@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     tools {
         nodejs 'nodejs-22.12.0'  // Use the Node.js tool defined in Jenkins
     }
@@ -10,7 +9,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
                 checkout scm  // Check out the latest code from your version control system
             }
@@ -18,20 +17,16 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
+                // Install Node.js dependencies
                 bat '''
                 npm install
                 '''
             }
         }
-         stage('Install ESLint') {
-            steps {
-                bat 'npm install eslint --save-dev'
-            }
-        }
-
 
         stage('Lint') {
             steps {
+                // Run linting and fix automatically where possible
                 bat '''
                 npm run lint -- --fix
                 '''
@@ -40,6 +35,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                // Run the build command in the current directory
                 bat '''
                 npm run build
                 '''
@@ -48,16 +44,17 @@ pipeline {
 
         stage('SonarQube Analysis') {
             environment {
-                SONAR_TOKEN = credentials('sonar-token')  // Retrieve SonarQube token from Jenkins credentials
+                SONAR_TOKEN = credentials('sonar-token')  // Retrieve SonarQube token from Jenkins credentials store
             }
             steps {
+                // Ensure sonar-scanner is available in the path and perform SonarQube analysis
                 bat '''
                 set PATH=%SONAR_SCANNER_PATH%;%PATH%
                 where sonar-scanner || echo "SonarQube scanner not found. Please install it."
-                sonar-scanner -Dsonar.projectKey=asses2 ^ 
-                              -Dsonar.sources=. ^ 
-                              -Dsonar.host.url=http://localhost:9000 ^ 
-                              -Dsonar.token=%SONAR_TOKEN%
+                sonar-scanner -Dsonar.projectKey=asses2 ^
+                    -Dsonar.sources=. ^
+                    -Dsonar.host.url=http://localhost:9000 ^
+                    -Dsonar.token=%SONAR_TOKEN% 2>&1
                 '''
             }
         }
